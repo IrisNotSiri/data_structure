@@ -59,6 +59,7 @@ llis.popleft()
 print (llis)
 
 
+# create tree node (both tree and binary search tree need tree node)
 class TreeNode:
     def __init__(self,data):
         self.left = None
@@ -67,7 +68,32 @@ class TreeNode:
     def __repr__(self):
       return str(self.data)
 
+#create tree 
 class Tree:
+  def __init__(self):
+    self.root = None
+  # insert value in level order(to empty spot), in order of from high level to low level, from left to right
+  def insert(self,temp,newNode):
+    q = []
+    q.append(temp)
+    while (len(q)):
+      temp = q[0]
+      q.pop(0)
+      if (not temp.left):
+        temp.left = newNode
+        break
+      else:
+        q.append(temp.left)
+      if (not temp.right):
+        temp.right = newNode
+        break
+      else:
+        q.append(temp.right)
+
+
+## create binary search tree
+
+class BinarySearchTree:
     def __init__(self):
       self.root = None
     def insert(self,root,newNode):
@@ -84,13 +110,32 @@ class Tree:
           self.insert(self.root.left, newNode)
 
 
-
+"""
+Tree Traversals (Inorder, Preorder and Postorder)
+(a) Inorder (Left, Root, Right)
+(b) Preorder (Root, Left, Right) 
+(c) Postorder (Left, Right, Root) 
+"""
 def inorder(root): 
     if root: 
-        inorder(root.left) 
-        print(root.data) 
-        inorder(root.right) 
-  
+      #recur on left child
+      inorder(root.left)
+      #print the data of the node
+      print (root.data)
+      #recur on the right child
+      inorder(root.right)
+        
+def postorder(root):
+    if root:
+      postorder(root.left)
+      postorder(root.right)
+      print(root.data)
+
+def preorder(root):
+    if root:
+      print(root.data)
+      preorder(root.left)
+      preorder(root.right)
   
 # Driver program to test the above functions 
 # Let us create the following BST 
@@ -100,9 +145,10 @@ def inorder(root):
 #   / \    / \ 
 #  20 40  60 80 
 
-
+#create binary search tree
 r = TreeNode(50)
-tree = Tree()
+tree = BinarySearchTree()
+
 tree.insert(r,TreeNode(30)) 
 tree.insert(r,TreeNode(20)) 
 tree.insert(r,TreeNode(40)) 
@@ -111,7 +157,7 @@ tree.insert(r,TreeNode(60))
 tree.insert(r,TreeNode(80)) 
   
 # Print inoder traversal of the BST 
-inorder(r)
+preorder(r)
 
 
 
